@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using SongsLibrary.Data;
 
 namespace SongsLibrary.Controllers
 {
+    [Authorize]
     public class MusicVideosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -48,8 +50,8 @@ namespace SongsLibrary.Controllers
         // GET: MusicVideos/Create
         public IActionResult Create()
         {
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Id");
-            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "Id");
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Name");
+            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "GenreTitle");
             return View();
         }
 
@@ -67,7 +69,7 @@ namespace SongsLibrary.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Id", musicVideo.ArtistId);
-            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "Id", musicVideo.GenreId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "GenreTitle", musicVideo.GenreId);
             return View(musicVideo);
         }
 
@@ -84,8 +86,8 @@ namespace SongsLibrary.Controllers
             {
                 return NotFound();
             }
-            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Id", musicVideo.ArtistId);
-            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "Id", musicVideo.GenreId);
+            ViewData["ArtistId"] = new SelectList(_context.Artist, "Id", "Name", musicVideo.ArtistId);
+            ViewData["GenreId"] = new SelectList(_context.Genre, "Id", "GenreTitle", musicVideo.GenreId);
             return View(musicVideo);
         }
 

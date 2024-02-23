@@ -4,32 +4,55 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<style>
+    body {
+        background: url('https://i.redd.it/i-recreated-one-of-the-ai-generated-frutiger-aero-v0-siz7hsb2ez7a1.png?width=1920&format=png&auto=webp&s=e06aaf5d6aa7a036b65daa4860c4ad5bd68e9c4e') no-repeat center center fixed;
+        background-size: cover;
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        color: white;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        padding: 20px;
+    }
+
+    .linkedtext {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #fff;
+        color: black;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+</style>
+
+<h1>Genres</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="linkedtext">Create New Genre</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GenreTitle)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GenreTitle)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@item.GenreTitle</h5>
+                    </div>
+                    <div class="card-footer bg-light text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-light">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-light">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
